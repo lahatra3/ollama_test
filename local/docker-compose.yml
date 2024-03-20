@@ -18,6 +18,8 @@ services:
       - ollama
     build: ../
     container_name: app
+    env_file:
+      - app/docker.env
     restart: on-failure
     networks:
       - lahatrad

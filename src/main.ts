@@ -1,16 +1,19 @@
 import { Ollama } from "ollama";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 (async() => {
-    const ollama = new Ollama({ host: "http://ollama:11434" });
+    const host = process.env["OLLAMA_HOST"];
+    const ollama = new Ollama({ host });
     const response = await ollama.chat({
         model: "llama2",
         messages: [
-            { role: 'user', content: 'Hello' }
+            { role: 'user', content: 'What is llama2 ?' }
         ],
         stream: true
     });
-    
     for await (const part of response) {
-        process.stdout.write(part.message.content)
+        process.stdout.write(part.message.content);
     }
 })();
