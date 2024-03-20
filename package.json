@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "start": "node main.ts",
+    "start": "node dist/main",
     "build": "npx tsc"
   },
   "keywords": [],
