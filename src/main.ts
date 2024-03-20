@@ -1,10 +1,16 @@
-import ollama from "ollama";
+import { Ollama } from "ollama";
 
-const response = await ollama.chat({
-    model: "llama2",
-    messages: [
-        { role: 'user', content: 'Why is the sky blue?' }
-    ]
-});
-
-console.log(response);
+(async() => {
+    const ollama = new Ollama({ host: "http://ollama:11434" });
+    const response = await ollama.chat({
+        model: "llama2",
+        messages: [
+            { role: 'user', content: 'Hello' }
+        ],
+        stream: true
+    });
+    
+    for await (const part of response) {
+        process.stdout.write(part.message.content)
+    }
+})();

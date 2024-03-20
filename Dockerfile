@@ -1,14 +1,12 @@
-# ======== nodejs docker image
-FROM node:iron-alpine
-
-# ======== Working directory
+FROM node:iron-alpine AS app_build
 WORKDIR /app
-
-# ======== Installing dependencies
 COPY package.json ./
 RUN npm install -g npm && npm install
-COPY ./ /
-
-# ======== Run app
+COPY ./ ./
 RUN npm run build
-ENTRYPOINT [ "npm", "run", "start" ]
+
+FROM node:iron-alpine
+WORKDIR /app
+COPY --from=app_build /app/dist ./dist
+COPY --from=app_build /app/node_modules ./node_modules
+CMD [ "node", "dist/main" ]

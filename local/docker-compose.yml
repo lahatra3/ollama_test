@@ -2,7 +2,7 @@ version: '3'
 services:
   ollama:
     image: ollama/ollama
-    container_name: "ollama"
+    container_name: ollama
     ports:
       - "11434:11434"
     volumes:
@@ -10,11 +10,15 @@ services:
     restart: always
     networks:
       - lahatrad
-    # command: ollama run llama2
+    entrypoint: ""
+    command: "ollama serve && ollama run llam2"
 
   app:
+    depends_on:
+      - ollama
     build: ../
     container_name: app
+    restart: on-failure
     networks:
       - lahatrad
 

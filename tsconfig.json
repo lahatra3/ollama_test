@@ -3,7 +3,7 @@
     "target": "es2017",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "es2022",
+    "module": "commonjs",
     "rootDir": "./src",
     "moduleResolution": "node",
     "declaration": true,
